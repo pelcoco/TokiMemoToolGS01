@@ -55,8 +55,22 @@ public class Program
 
         using FileStream fsBin = new (rutaBinMod, FileMode.Open, FileAccess.Write);
         using BinaryWriter conversor = new (fsBin);
+        string linea = lector.ReadLine();
 
-        
+        //Nos posicionamos en el comienzo del texto en la copia del .bin
+        fsBin.Seek(msgPointer, SeekOrigin.Begin);
+        while (linea != null)
+        {
+            if(linea.StartsWith("//") || linea.StartsWith("[ID:") || string.IsNullOrWhiteSpace(linea))
+            {
+                continue;
+            }
+            foreach (char c in linea)
+            {
+                conversor.Write((byte)c);
+            }
+            conversor.Write((byte)0x00);
+        }
 
     }
 }
