@@ -62,11 +62,7 @@ public class Program
 
         while ((linea = lector.ReadLine()) != null) //Mientras no esté vacía...
         {
-            if (linea.StartsWith("//") || linea.StartsWith("[ID:"))
-            {
-                
-            }
-            else
+            if (!linea.StartsWith("//") && !linea.StartsWith("[ID:"))
             {
                 foreach (char c in linea)
                     conversor.Write(((byte)c));
