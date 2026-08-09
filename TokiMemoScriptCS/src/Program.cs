@@ -30,9 +30,8 @@ public class Program
         fs.Seek(msgPointer, SeekOrigin.Begin); //Hemos encontrado el comienzo del diálogo
         pos = lectorBinarios.ReadByte(); //Leemos byte a byte para traducir carácter a carácter
 
-        while (pos != -1)
+        while (fs.Position < fs.Length)
         {
-            mensaje += (char)pos;
             pos = lectorBinarios.ReadByte();
             if (pos == 0x00)
             {
@@ -41,8 +40,9 @@ public class Program
                 salida.WriteLine(mensaje);
                 id++;
                 mensaje = "";
-                pos = lectorBinarios.ReadByte();
             }
+            else
+                mensaje += (char)pos;
         }
         return msgPointer;
     }
