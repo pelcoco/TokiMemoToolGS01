@@ -10,7 +10,7 @@ public class Program
         ImportarTexto("A01_00_000_trans", "A01_00_000", "A01_00_000_mod", msgPointer);
 	}
 
-	public static int ExportarTexto(string nombreFichero, string nombreExportado)
+	private static int ExportarTexto(string nombreFichero, string nombreExportado)
 	{
         int msgPointer = 0; //Dirección de comienzo del texto
         int id = 0;
@@ -47,7 +47,7 @@ public class Program
         return msgPointer;
     }
 
-    public static void ImportarTexto(string txtTraducido, string rutaBinOriginal, string rutaBinMod, int msgPointer)
+    private static void ImportarTexto(string txtTraducido, string rutaBinOriginal, string rutaBinMod, int msgPointer)
     {
         File.Copy(rutaBinOriginal, rutaBinMod, true); //Hago una copia para no tocar el original. (el true es para permitir sobreescribir LA COPIA)
         using FileStream fsTxt = new (txtTraducido, FileMode.Open, FileAccess.Read);
