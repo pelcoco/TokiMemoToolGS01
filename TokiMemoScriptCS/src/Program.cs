@@ -6,7 +6,7 @@ public class Program
 	public static void Main(string[] args)
 	{
         int msgPointer;
-		msgPointer = ExportarTexto("A01_00_000", "A01_00_000_trans");
+		msgPointer = ExportarTexto("A01_00_000", "A01_00_000_dialogue");
         ImportarTexto("A01_00_000_trans", "A01_00_000", "A01_00_000_mod", msgPointer);
 	}
 
@@ -55,13 +55,28 @@ public class Program
 
         using FileStream fsBin = new (rutaBinMod, FileMode.Open, FileAccess.Write);
         using BinaryWriter conversor = new (fsBin);
-        string linea = lector.ReadLine();
+        string linea; //Las lineas que vamos a leer para convertir byte a byte
 
         //Nos posicionamos en el comienzo del texto en la copia del .bin
         fsBin.Seek(msgPointer, SeekOrigin.Begin);
+
         while (linea != null)
         {
-            if(linea.StartsWith("//") || linea.StartsWith("[ID:") || string.IsNullOrWhiteSpace(linea))
+            linea.ReadLine();
+            switch(linea)
+            {
+                case linea.StartsWith("//"):
+                case linea.StartsWith("[ID:"): break;
+                default:
+                    foreach (char c in linea)
+                        conversor.Write(((byte)c));
+                    conversor.Write(0x00); //se sobreentiende que es byte?
+            }
+        }
+        /*while (linea != null)
+        {
+            linea.ReadLine();
+            if(linea.StartsWith("//") || linea.StartsWith("[ID:"))
             {
                 continue;
             }
@@ -70,7 +85,7 @@ public class Program
                 conversor.Write((byte)c);
             }
             conversor.Write((byte)0x00);
-        }
+        }*/
 
     }
 }
