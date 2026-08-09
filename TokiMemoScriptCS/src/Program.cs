@@ -60,32 +60,18 @@ public class Program
         //Nos posicionamos en el comienzo del texto en la copia del .bin
         fsBin.Seek(msgPointer, SeekOrigin.Begin);
 
-        while (linea != null)
+        while ((linea = lector.ReadLine()) != null) //Mientras no esté vacía...
         {
-            linea.ReadLine();
-            switch(linea)
+            if (linea.StartsWith("//") || linea.StartsWith("[ID:"))
             {
-                case linea.StartsWith("//"):
-                case linea.StartsWith("[ID:"): break;
-                default:
-                    foreach (char c in linea)
-                        conversor.Write(((byte)c));
-                    conversor.Write(0x00); //se sobreentiende que es byte?
+                
+            }
+            else
+            {
+                foreach (char c in linea)
+                    conversor.Write(((byte)c));
+                conversor.Write((byte)0x00);
             }
         }
-        /*while (linea != null)
-        {
-            linea.ReadLine();
-            if(linea.StartsWith("//") || linea.StartsWith("[ID:"))
-            {
-                continue;
-            }
-            foreach (char c in linea)
-            {
-                conversor.Write((byte)c);
-            }
-            conversor.Write((byte)0x00);
-        }*/
-
     }
 }
