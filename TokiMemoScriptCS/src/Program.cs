@@ -6,11 +6,11 @@ public class Program
 	public static void Main(string[] args)
 	{
         int msgPointer;
-		msgPointer = ExportarTexto("A01_00_000", "A01_00_000_trans");
+		msgPointer = ExportarTexto("A01_00_000", "A01_00_000_dialogue");
         ImportarTexto("A01_00_000_trans", "A01_00_000", "A01_00_000_mod", msgPointer);
 	}
 
-	public static int ExportarTexto(string nombreFichero, string nombreExportado)
+	private static int ExportarTexto(string nombreFichero, string nombreExportado)
 	{
         int msgPointer = 0; //Dirección de comienzo del texto
         int id = 0;
@@ -30,9 +30,8 @@ public class Program
         fs.Seek(msgPointer, SeekOrigin.Begin); //Hemos encontrado el comienzo del diálogo
         pos = lectorBinarios.ReadByte(); //Leemos byte a byte para traducir carácter a carácter
 
-        while (pos != -1)
+        while (fs.Position < fs.Length)
         {
-            mensaje += (char)pos;
             pos = lectorBinarios.ReadByte();
             if (pos == 0x00)
             {
@@ -41,13 +40,14 @@ public class Program
                 salida.WriteLine(mensaje);
                 id++;
                 mensaje = "";
-                pos = lectorBinarios.ReadByte();
             }
+            else
+                mensaje += (char)pos;
         }
         return msgPointer;
     }
 
-    public static void ImportarTexto(string txtTraducido, string rutaBinOriginal, string rutaBinMod, int msgPointer)
+    private static void ImportarTexto(string txtTraducido, string rutaBinOriginal, string rutaBinMod, int msgPointer)
     {
         File.Copy(rutaBinOriginal, rutaBinMod, true); //Hago una copia para no tocar el original. (el true es para permitir sobreescribir LA COPIA)
         using FileStream fsTxt = new (txtTraducido, FileMode.Open, FileAccess.Read);
@@ -55,8 +55,19 @@ public class Program
 
         using FileStream fsBin = new (rutaBinMod, FileMode.Open, FileAccess.Write);
         using BinaryWriter conversor = new (fsBin);
+        string linea; //Las lineas que vamos a leer para convertir byte a byte
 
-        
+        //Nos posicionamos en el comienzo del texto en la copia del .bin
+        fsBin.Seek(msgPointer, SeekOrigin.Begin);
 
+        while ((linea = lector.ReadLine()) != null) //Mientras no esté vacía...
+        {
+            if (!linea.StartsWith("//") && !linea.StartsWith("[ID:"))
+            {
+                foreach (char c in linea)
+                    conversor.Write(((byte)c));
+                conversor.Write((byte)0x00);
+            }
+        }
     }
 }

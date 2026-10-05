@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\CsScript\\CsScript.csproj": {}
+    "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\TokiMemoToolGS01\\TokiMemoScriptCS\\CsScript.csproj": {}
   },
   "projects": {
-    "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\CsScript\\CsScript.csproj": {
+    "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\TokiMemoToolGS01\\TokiMemoScriptCS\\CsScript.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\CsScript\\CsScript.csproj",
+        "projectUniqueName": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\TokiMemoToolGS01\\TokiMemoScriptCS\\CsScript.csproj",
         "projectName": "CsScript",
-        "projectPath": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\CsScript\\CsScript.csproj",
+        "projectPath": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\TokiMemoToolGS01\\TokiMemoScriptCS\\CsScript.csproj",
         "packagesPath": "C:\\Users\\laura\\.nuget\\packages\\",
-        "outputPath": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\CsScript\\obj\\",
+        "outputPath": "C:\\TOKIMEKI\\DSProjects\\TranslationTest\\TMGSPlus\\TokiMemoToolGS01\\TokiMemoScriptCS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\laura\\AppData\\Roaming\\NuGet\\NuGet.Config"
